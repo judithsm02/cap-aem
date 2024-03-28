@@ -1,0 +1,1509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="AppExtensionsAppService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="systems" EntityType="AppExtensionsAppService.systems">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="systems"/>
+                </EntitySet>
+                <EntitySet Name="architectureTiers" EntityType="AppExtensionsAppService.architectureTiers">
+                    <NavigationPropertyBinding Path="extensionStyles" Target="extensionStyles"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="architectureTiers"/>
+                </EntitySet>
+                <EntitySet Name="extensionStyles" EntityType="AppExtensionsAppService.extensionStyles">
+                    <NavigationPropertyBinding Path="extensionTasks" Target="extensionTasks"/>
+                    <NavigationPropertyBinding Path="architectureTier" Target="architectureTiers"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionStyles"/>
+                </EntitySet>
+                <EntitySet Name="extensionTasks" EntityType="AppExtensionsAppService.extensionTasks">
+                    <NavigationPropertyBinding Path="extensionStyle" Target="extensionStyles"/>
+                    <NavigationPropertyBinding Path="extensionCharacteristics" Target="extensionTasksCharacteristics"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionTasks"/>
+                </EntitySet>
+                <EntitySet Name="extensionCharacteristics" EntityType="AppExtensionsAppService.extensionCharacteristics">
+                    <NavigationPropertyBinding Path="extensionCharacteristicsOptions" Target="extensionCharacteristicsOptions"/>
+                    <NavigationPropertyBinding Path="extensionTasks" Target="extensionTasksCharacteristics"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionCharacteristics"/>
+                </EntitySet>
+                <EntitySet Name="extensionTasksCharacteristics" EntityType="AppExtensionsAppService.extensionTasksCharacteristics">
+                    <NavigationPropertyBinding Path="extensionTask" Target="extensionTasks"/>
+                    <NavigationPropertyBinding Path="extensionCharacteristic" Target="extensionCharacteristics"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionTasksCharacteristics"/>
+                </EntitySet>
+                <EntitySet Name="extensionDomains" EntityType="AppExtensionsAppService.extensionDomains">
+                    <NavigationPropertyBinding Path="extensionBuildingBlocks" Target="extensionBuildingBlocks"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionDomains"/>
+                </EntitySet>
+                <EntitySet Name="extensionBuildingBlocks" EntityType="AppExtensionsAppService.extensionBuildingBlocks">
+                    <NavigationPropertyBinding Path="extensionDomain" Target="extensionDomains"/>
+                    <NavigationPropertyBinding Path="extensionPolicy" Target="extensionPolicyBuildingBlocks"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionBuildingBlocks"/>
+                </EntitySet>
+                <EntitySet Name="extensionCharacteristicsOptions" EntityType="AppExtensionsAppService.extensionCharacteristicsOptions">
+                    <NavigationPropertyBinding Path="extensionCharacteristic" Target="extensionCharacteristics"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionCharacteristicsOptions"/>
+                </EntitySet>
+                <EntitySet Name="extensionPoliciescharacteristics" EntityType="AppExtensionsAppService.extensionPoliciescharacteristics">
+                    <NavigationPropertyBinding Path="extensionTask" Target="extensionTasks"/>
+                    <NavigationPropertyBinding Path="extensionCharacateristicOptions" Target="extensionCharacteristicsOptions"/>
+                    <NavigationPropertyBinding Path="extensionPolicy" Target="extensionPolicies"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionPoliciescharacteristics"/>
+                </EntitySet>
+                <EntitySet Name="extensionPolicies" EntityType="AppExtensionsAppService.extensionPolicies">
+                    <NavigationPropertyBinding Path="extensionPoliciescharacteristics" Target="extensionPoliciescharacteristics"/>
+                    <NavigationPropertyBinding Path="extensionBuildingBlocks" Target="extensionPolicyBuildingBlocks"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionPolicies"/>
+                </EntitySet>
+                <EntitySet Name="extensionPolicyBuildingBlocks" EntityType="AppExtensionsAppService.extensionPolicyBuildingBlocks">
+                    <NavigationPropertyBinding Path="extensionPolicy" Target="extensionPolicies"/>
+                    <NavigationPropertyBinding Path="extensionBuildingBlock" Target="extensionBuildingBlocks"/>
+                    <NavigationPropertyBinding Path="recommendationDegrees" Target="recommendationDegrees"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="extensionPolicyBuildingBlocks"/>
+                </EntitySet>
+                <EntitySet Name="recommendationDegrees" EntityType="AppExtensionsAppService.recommendationDegrees">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="recommendationDegrees"/>
+                </EntitySet>
+                <ActionImport Name="getPolicy" Action="AppExtensionsAppService.getPolicy" EntitySet="extensionPolicies"/>
+            </EntityContainer>
+            <EntityType Name="systems">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.systems"/>
+            </EntityType>
+            <EntityType Name="architectureTiers">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="code" Type="Edm.String" MaxLength="1"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="extensionStyles" Type="Collection(AppExtensionsAppService.extensionStyles)" Partner="architectureTier">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.architectureTiers"/>
+            </EntityType>
+            <EntityType Name="extensionStyles">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="extensionTasks" Type="Collection(AppExtensionsAppService.extensionTasks)" Partner="extensionStyle">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="architectureTier" Type="AppExtensionsAppService.architectureTiers" Partner="extensionStyles">
+                    <ReferentialConstraint Property="architectureTier_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="architectureTier_ID" Type="Edm.Guid"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionStyles"/>
+            </EntityType>
+            <EntityType Name="extensionTasks">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="code" Type="Edm.String" MaxLength="5"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="extensionStyle" Type="AppExtensionsAppService.extensionStyles" Partner="extensionTasks">
+                    <ReferentialConstraint Property="extensionStyle_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionStyle_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="extensionCharacteristics" Type="Collection(AppExtensionsAppService.extensionTasksCharacteristics)" Partner="extensionTask"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionTasks"/>
+            </EntityType>
+            <EntityType Name="extensionCharacteristics">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+                <NavigationProperty Name="extensionCharacteristicsOptions" Type="Collection(AppExtensionsAppService.extensionCharacteristicsOptions)" Partner="extensionCharacteristic">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="extensionTasks" Type="Collection(AppExtensionsAppService.extensionTasksCharacteristics)" Partner="extensionCharacteristic"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionCharacteristics"/>
+            </EntityType>
+            <EntityType Name="extensionTasksCharacteristics">
+                <Key>
+                    <PropertyRef Name="extensionTask_ID"/>
+                    <PropertyRef Name="extensionCharacteristic_ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="extensionTask" Type="AppExtensionsAppService.extensionTasks" Partner="extensionCharacteristics">
+                    <ReferentialConstraint Property="extensionTask_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionTask_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="extensionCharacteristic" Type="AppExtensionsAppService.extensionCharacteristics" Partner="extensionTasks">
+                    <ReferentialConstraint Property="extensionCharacteristic_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionCharacteristic_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionTasksCharacteristics"/>
+            </EntityType>
+            <EntityType Name="extensionDomains">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="extensionBuildingBlocks" Type="Collection(AppExtensionsAppService.extensionBuildingBlocks)" Partner="extensionDomain">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionDomains"/>
+            </EntityType>
+            <EntityType Name="extensionBuildingBlocks">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="extensionDomain" Type="AppExtensionsAppService.extensionDomains" Partner="extensionBuildingBlocks">
+                    <ReferentialConstraint Property="extensionDomain_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionDomain_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="extensionPolicy" Type="Collection(AppExtensionsAppService.extensionPolicyBuildingBlocks)" Partner="extensionBuildingBlock"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionBuildingBlocks"/>
+            </EntityType>
+            <EntityType Name="extensionCharacteristicsOptions">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="value" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="extensionCharacteristic" Type="AppExtensionsAppService.extensionCharacteristics" Partner="extensionCharacteristicsOptions">
+                    <ReferentialConstraint Property="extensionCharacteristic_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionCharacteristic_ID" Type="Edm.Guid"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionCharacteristicsOptions"/>
+            </EntityType>
+            <EntityType Name="extensionPoliciescharacteristics">
+                <Key>
+                    <PropertyRef Name="extensionTask_ID"/>
+                    <PropertyRef Name="extensionCharacateristicOptions_ID"/>
+                    <PropertyRef Name="extensionPolicy_ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="extensionTask" Type="AppExtensionsAppService.extensionTasks">
+                    <ReferentialConstraint Property="extensionTask_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionTask_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="extensionCharacateristicOptions" Type="AppExtensionsAppService.extensionCharacteristicsOptions">
+                    <ReferentialConstraint Property="extensionCharacateristicOptions_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionCharacateristicOptions_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="extensionPolicy" Type="AppExtensionsAppService.extensionPolicies" Partner="extensionPoliciescharacteristics">
+                    <ReferentialConstraint Property="extensionPolicy_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionPolicy_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="group" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionPoliciescharacteristics"/>
+            </EntityType>
+            <EntityType Name="extensionPolicies">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="policyId" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="extensionPoliciescharacteristics" Type="AppExtensionsAppService.extensionPoliciescharacteristics" Partner="extensionPolicy">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="extensionPolicy_ID"/>
+                </NavigationProperty>
+                <NavigationProperty Name="extensionBuildingBlocks" Type="Collection(AppExtensionsAppService.extensionPolicyBuildingBlocks)" Partner="extensionPolicy"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionPolicies"/>
+            </EntityType>
+            <EntityType Name="extensionPolicyBuildingBlocks">
+                <Key>
+                    <PropertyRef Name="extensionPolicy_ID"/>
+                    <PropertyRef Name="extensionBuildingBlock_ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="extensionPolicy" Type="AppExtensionsAppService.extensionPolicies" Partner="extensionBuildingBlocks">
+                    <ReferentialConstraint Property="extensionPolicy_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionPolicy_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="extensionBuildingBlock" Type="AppExtensionsAppService.extensionBuildingBlocks" Partner="extensionPolicy">
+                    <ReferentialConstraint Property="extensionBuildingBlock_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="extensionBuildingBlock_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="recommendationDegrees" Type="AppExtensionsAppService.recommendationDegrees">
+                    <ReferentialConstraint Property="recommendationDegrees_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="recommendationDegrees_ID" Type="Edm.Guid"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.extensionPolicyBuildingBlocks"/>
+            </EntityType>
+            <EntityType Name="recommendationDegrees">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="displayPosition" Type="Edm.Int16"/>
+                <Property Name="type" Type="Edm.String"/>
+                <Property Name="colour" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="AppExtensionsAppService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="AppExtensionsAppService.recommendationDegrees"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.systems"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.systems"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.architectureTiers"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.architectureTiers"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionStyles"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionStyles"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionTasks"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionTasks"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionCharacteristics"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionCharacteristics"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionTasksCharacteristics"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionTasksCharacteristics"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionDomains"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionDomains"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionBuildingBlocks"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionBuildingBlocks"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionCharacteristicsOptions"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionCharacteristicsOptions"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPoliciescharacteristics"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPoliciescharacteristics"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPolicies"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPolicies"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPolicyBuildingBlocks"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPolicyBuildingBlocks"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.recommendationDegrees"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="AppExtensionsAppService.recommendationDegrees"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.systems"/>
+                <ReturnType Type="AppExtensionsAppService.systems"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.architectureTiers"/>
+                <ReturnType Type="AppExtensionsAppService.architectureTiers"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionCharacteristics"/>
+                <ReturnType Type="AppExtensionsAppService.extensionCharacteristics"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionTasksCharacteristics"/>
+                <ReturnType Type="AppExtensionsAppService.extensionTasksCharacteristics"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionDomains"/>
+                <ReturnType Type="AppExtensionsAppService.extensionDomains"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPoliciescharacteristics"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPoliciescharacteristics"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPolicies"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPolicies"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPolicyBuildingBlocks"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPolicyBuildingBlocks"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.recommendationDegrees"/>
+                <ReturnType Type="AppExtensionsAppService.recommendationDegrees"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.systems"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.systems"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.architectureTiers"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.architectureTiers"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionCharacteristics"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.extensionCharacteristics"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionTasksCharacteristics"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.extensionTasksCharacteristics"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionDomains"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.extensionDomains"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPoliciescharacteristics"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPoliciescharacteristics"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPolicies"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPolicies"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.extensionPolicyBuildingBlocks"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPolicyBuildingBlocks"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="AppExtensionsAppService.recommendationDegrees"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="AppExtensionsAppService.recommendationDegrees"/>
+            </Action>
+            <Action Name="getPolicy" IsBound="false">
+                <Parameter Name="extensionPoliciescharacteristics" Type="Collection(AppExtensionsAppService.extensionPoliciescharacteristics)" Nullable="false"/>
+                <ReturnType Type="AppExtensionsAppService.extensionPolicies"/>
+            </Action>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/systems">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.systems/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Title"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Description"/>
+                            <PropertyValue Property="Value" Path="description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Display Position"/>
+                            <PropertyValue Property="Value" Path="displayPosition"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Architecture Tier"/>
+                        <PropertyValue Property="TypeNamePlural" String="Architecture Tiers"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="main">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Title"/>
+                                    <PropertyValue Property="Value" Path="title"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Description"/>
+                                    <PropertyValue Property="Value" Path="description"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Display Position"/>
+                                    <PropertyValue Property="Value" Path="displayPosition"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="architectureTier"/>
+                            <PropertyValue Property="Label" String="Architecture Tier"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#main"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="extStyles"/>
+                            <PropertyValue Property="Label" String="Extension Styles"/>
+                            <PropertyValue Property="Target" AnnotationPath="extensionStyles/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/architectureTiers">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.architectureTiers/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Title"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Description"/>
+                            <PropertyValue Property="Value" Path="description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Display Position"/>
+                            <PropertyValue Property="Value" Path="displayPosition"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Extension Styles"/>
+                        <PropertyValue Property="TypeNamePlural" String="Extension Styles"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="extStyles">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Title"/>
+                                    <PropertyValue Property="Value" Path="title"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Description"/>
+                                    <PropertyValue Property="Value" Path="description"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Display Position"/>
+                                    <PropertyValue Property="Value" Path="displayPosition"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#extStyles"/>
+                            <PropertyValue Property="Label" String="Extension Style"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="extensionTasks/@UI.LineItem"/>
+                            <PropertyValue Property="Label" String="Extension Tasks"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionStyles">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionStyles/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Title"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Description"/>
+                            <PropertyValue Property="Value" Path="description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Display Position"/>
+                            <PropertyValue Property="Value" Path="displayPosition"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Extension Tasks"/>
+                        <PropertyValue Property="TypeNamePlural" String="Extension Tasks"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionTasks">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasks/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionCharacteristics">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristics/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionTasksCharacteristics">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionTasksCharacteristics/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Title"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Description"/>
+                            <PropertyValue Property="Value" Path="description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Display Position"/>
+                            <PropertyValue Property="Value" Path="displayPosition"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Extension Domains"/>
+                        <PropertyValue Property="TypeNamePlural" String="Extension Domains"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="extnDomains">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Title"/>
+                                    <PropertyValue Property="Value" Path="title"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Description"/>
+                                    <PropertyValue Property="Value" Path="description"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Display Position"/>
+                                    <PropertyValue Property="Value" Path="displayPosition"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="extnDomains"/>
+                            <PropertyValue Property="Label" String="Domains"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#extnDomains"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="extnBuildingBlocks"/>
+                            <PropertyValue Property="Label" String="Building Blocks"/>
+                            <PropertyValue Property="Target" AnnotationPath="extensionBuildingBlocks/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionDomains">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionDomains/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Extension Building Block"/>
+                        <PropertyValue Property="TypeNamePlural" String="Extension Building Block"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="title"/>
+                            <PropertyValue Property="Label" String="Title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="description"/>
+                            <PropertyValue Property="Label" String="Description"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="extnBuildingBlocks"/>
+                            <PropertyValue Property="Label" String="Extension Building Block"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#extnBuildingBlocks"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="extnBuildingBlocks">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Title"/>
+                                    <PropertyValue Property="Value" Path="title"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Description"/>
+                                    <PropertyValue Property="Value" Path="description"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Display Position"/>
+                                    <PropertyValue Property="Value" Path="displayPosition"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionBuildingBlocks">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionBuildingBlocks/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionCharacteristicsOptions">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionCharacteristicsOptions/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionPoliciescharacteristics">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPoliciescharacteristics/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionPolicies">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicies/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/extensionPolicyBuildingBlocks">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.extensionPolicyBuildingBlocks/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.EntityContainer/recommendationDegrees">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AppExtensionsAppService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AppExtensionsAppService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AppExtensionsAppService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/type">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Forbidden"/>
+                            <PropertyValue Property="Value" String="Forbidden"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Warning"/>
+                            <PropertyValue Property="Value" String="Warning"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Recommended"/>
+                            <PropertyValue Property="Value" String="Recommended"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.recommendationDegrees/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="Draft Administrative Data"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/DraftUUID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft (Technical ID)"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/CreationDateTime">
+                <Annotation Term="Common.Label" String="Draft Created On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/CreatedByUser">
+                <Annotation Term="Common.Label" String="Draft Created By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/DraftIsCreatedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft Created By Me"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/LastChangeDateTime">
+                <Annotation Term="Common.Label" String="Draft Last Changed On"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/LastChangedByUser">
+                <Annotation Term="Common.Label" String="Draft Last Changed By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/InProcessByUser">
+                <Annotation Term="Common.Label" String="Draft In Process By"/>
+            </Annotations>
+            <Annotations Target="AppExtensionsAppService.DraftAdministrativeData/DraftIsProcessedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft In Process By Me"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
